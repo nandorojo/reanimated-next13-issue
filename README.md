@@ -2,7 +2,7 @@
 
 ## Related issue
 
-[Issue](https://github.com/vercel/next.js/issues/43886)
+[next#43886](https://github.com/vercel/next.js/issues/43886)
 
 It's possible that Next.js' `swcPlugins` isn't working properly when using `transpilePackages`. The same goes for `next-transpile-modules`. It's not 100% clear to me whether or not this is the problem. 
 
