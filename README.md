@@ -1,34 +1,69 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Reanimated + Next.js 13 not working
 
-## Getting Started
+## Run this example
 
-First, run the development server:
+1. Clone it
+2. `yarn`
+3. `yarn next`
 
-```bash
-npm run dev
-# or
-yarn dev
+## Repro steps
+
+These are the steps I took to make this reproduction:
+
+1. Install dependencies
+
+```sh
+npx create-next-app --ts reanimated
+cd reanimated
+yarn add @types/react-native react-native-web react-native-reanimated react-native-reanimated-swc-plugin raf
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Add `next.config.js` with the following content:
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```js
+const nextConfig = {
+  reactStrictMode: false,
+  experimental: {
+    swcPlugins: [['react-native-reanimated-swc-plugin']],
+  },
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...(config.resolve.alias || {}),
+      // Transform all direct `react-native` imports to `react-native-web`
+      'react-native$': 'react-native-web',
+    }
+    config.resolve.extensions = [
+      '.web.js',
+      '.web.ts',
+      '.web.tsx',
+      ...config.resolve.extensions,
+    ]
+    return config
+  },
+  transpilePackages: ['react-native-reanimated'],
+}
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+module.exports = nextConfig
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+3. Add `import 'raf/polyfill'` to the top of `pages/_app.js`:
 
-## Learn More
+```tsx
+import 'raf/polyfill'
 
-To learn more about Next.js, take a look at the following resources:
+export default function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
+}
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Add a Reanimated view to `pages/index.js`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```tsx
+import Animated from 'react-native-reanimated'
 
-## Deploy on Vercel
+export default function Home() {
+  return <Animated.View />
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+5. Run `yarn next`, and open `localhost:3000`: it breaks
