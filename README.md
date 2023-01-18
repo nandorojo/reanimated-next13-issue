@@ -2,7 +2,8 @@
 
 ## Related issue
 
-[next#43886](https://github.com/vercel/next.js/issues/43886)
+Next: [next.js#43886](https://github.com/vercel/next.js/issues/43886)
+Reanimated: [#3971](https://github.com/software-mansion/react-native-reanimated/issues/3971)
 
 It's possible that Next.js' `swcPlugins` isn't working properly when using `transpilePackages`. The same goes for `next-transpile-modules`. It's not 100% clear to me whether or not this is the problem. 
 
