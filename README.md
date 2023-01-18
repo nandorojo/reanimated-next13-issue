@@ -1,5 +1,7 @@
 # Reanimated + Next.js 13 not working
 
+<img width="1643" alt="Screenshot 2023-01-18 at 2 42 34 PM" src="https://user-images.githubusercontent.com/13172299/213279607-e3b61934-2b06-422b-b44d-53ce7a711f6a.png">
+
 ## Run this example
 
 1. Clone it
