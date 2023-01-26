@@ -55,19 +55,10 @@ const nextConfig = {
 module.exports = nextConfig
 ```
 
-3. Add `import 'raf/polyfill'` to the top of `pages/_app.js`:
+3. Add a Reanimated view to `pages/index.js`:
 
 ```tsx
 import 'raf/polyfill'
-
-export default function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
-```
-
-4. Add a Reanimated view to `pages/index.js`:
-
-```tsx
 import Animated from 'react-native-reanimated'
 
 export default function Home() {
@@ -75,7 +66,7 @@ export default function Home() {
 }
 ```
 
-5. Run `yarn next`, and open `localhost:3000`: it breaks
+4. Run `yarn next`, and open `localhost:3000`: it breaks
 
 
 <img width="1643" alt="Screenshot 2023-01-18 at 2 42 34 PM" src="https://user-images.githubusercontent.com/13172299/213279607-e3b61934-2b06-422b-b44d-53ce7a711f6a.png">
