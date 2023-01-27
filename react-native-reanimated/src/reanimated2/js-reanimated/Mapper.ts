@@ -45,9 +45,6 @@ export default class Mapper<T> {
     const res: MutableValue<T>[] = [];
 
     function extractMutables(value: NestedObjectValues<MutableValue<T>>) {
-      if (value != null) {
-        console.log('[extractMutables]', value)
-      }
       if (value == null) {
         // return;
       } else if (value instanceof MutableValue) {

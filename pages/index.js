@@ -13,9 +13,8 @@ import Animated, {
 
 export default function Home() {
   const sv = useSharedValue(1)
-  //
 
-  const dv = useDerivedValue(() => (sv.value == 1 ? 0 : 20), [sv])
+  const dv = useDerivedValue(() => (sv.value - 1) * 100, [sv])
   const animatedStyle = useAnimatedStyle(
     () => ({
       opacity: withTiming(sv.value),
@@ -44,7 +43,7 @@ export default function Home() {
         sv.value = 0.7
       }}
       onMouseLeave={() => {
-        sv.value = 1
+        sv.value = 2
       }}
       style={[
         {
